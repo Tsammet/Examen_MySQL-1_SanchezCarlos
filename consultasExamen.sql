@@ -47,6 +47,7 @@ where eq.id_equipamiento  = 5 or eq.id_equipamiento = 6
 
 
 
+
 -- Consulta 9 Consulta de Complejos Polideportivos sin Eventos Celebrados.
 
 Select * from complejo_polideportivo as cp
@@ -55,3 +56,14 @@ where ecp.id_evento_complejo is null
 
 
 -- Consulta 10 Consulta de Comisarios que Actúan como Jueces en Todos los Eventos.
+
+Select * from comisario c 
+inner join evento_comisario ec on c.id_comisario = ec.id_comisario 
+inner join eventos as eve on eve.id_evento  = ec.id_evento 
+inner join evento_complejo_poli ecp  on ecp.id_evento  = eve.id_evento 
+inner join complejo_polideportivo cp  on cp.id_complejo_polideportivo  = ecp.id_complejo 
+inner join info_complejo ic on ic.id_complejo = cp.id_complejo_polideportivo 
+inner join jefes as je on je.id_jefe  = ic.id_jefe 
+where je.id_jefe = c.id_comisario 
+
+
